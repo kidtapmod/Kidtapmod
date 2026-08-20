@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kidtapmod - Bio Link</title>
+    <!-- Font chữ và Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* Giao diện nền phong cách Kaito Kid: Xanh Navy đậm và ánh trăng */
+        body {
+            background-color: #05070a;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: radial-gradient(circle at 70% 20%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                              url('https://www.transparenttextures.com/patterns/dark-dotted.png');
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Top Bar (Clock & Menu) */
+        .top-bar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .clock-box {
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #93c5fd;
+        }
+
+        .menu-btn {
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            color: #93c5fd;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .menu-btn:hover {
+            background: rgba(56, 189, 248, 0.15);
+            transform: rotate(90deg);
+        }
+
+        /* Khung Avatar phong cách Ảo thuật gia */
+        .magician-avatar-wrapper {
+            position: relative;
+            width: 145px; /* Tăng nhẹ kích thước */
+            height: 145px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        /* Viền xoáy ốc tượng trưng cho ảo thuật, màu bạc và xanh sapphire */
+        .magician-avatar-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #1e40af, #a5b4fc, #dbeafe, #a5b4fc, #1e40af);
+            animation: magicianRotate 6s linear infinite;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(165, 180, 252, 0.5);
+        }
+        
+        /* Hiệu ứng lấp lánh */
+        .magician-avatar-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -15px;
+            border-radius: 45% 55% 60% 40% / 60% 40% 60% 40%;
+            border: 1px solid rgba(165, 180, 252, 0.3);
+            animation: magicianRotate 8s linear infinite reverse;
+            z-index: 0;
+        }
+
+        @keyframes magicianRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #05070a; /* Viền trong trùng màu nền */
+            overflow: hidden;
+            background: #0f1015;
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .magician-avatar-wrapper:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .badge-user {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: #d1d5db;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-user .fa-circle-check {
+            color: #60a5fa;
+            font-size: 14px;
+        }
+
+        .name-box {
+            font-size: 28px; /* Tăng kích thước */
+            font-weight: bold;
+            margin-bottom: 25px;
+            background: linear-gradient(90deg, #ffffff, #a5b4fc, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        /* Stats Box */
+        .stats-box {
+            width: 100%;
+            background: rgba(56, 189, 248, 0.03);
+            border: 1px solid rgba(56, 189, 248, 0.06);
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-around;
+            padding: 18px 0;
+            margin-bottom: 25px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #e0f2fe;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        /* Social buttons row */
+        .social-row {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .social-btn {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px;
+            border-radius: 14px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            background: rgba(165, 180, 252, 0.1);
+            border-color: #a5b4fc;
+        }
+
+        /* Hiệu ứng bắt mắt cho nút Discord (tông màu xanh tím của Kid) */
+        .social-btn.discord-kid {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+            border: 1.5px solid #a5b4fc;
+        }
+
+        .social-btn.discord-kid i {
+            color: #a5b4fc;
+        }
+
+        /* Section Titles */
+        .section-tag {
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            color: #93c5fd;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            align-self: flex-start;
+            margin: 25px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-heading {
+            align-self: flex-start;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #f3f4f6;
+        }
+
+        /* Link Cards */
+        .link-card {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 16px;
+            border-radius: 16px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .link-card:hover {
+            background: rgba(165, 180, 252, 0.08);
+            transform: translateX(5px);
+        }
+
+        .link-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .link-icon, .link-thumb {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .bg-kid { background: rgba(165, 180, 252, 0.15); color: #a5b4fc; }
+
+        .link-info h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: #f9fafb;
+        }
+
+        .link-info p {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .link-action {
+            color: #6b7280;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        /* Game Mod / Item Card đặc biệt */
+        .mod-card {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 14px;
+            border-radius: 16px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .mod-card:hover {
+            background: rgba(165, 180, 252, 0.08);
+        }
+
+        .mod-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mod-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .mod-details h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #f9fafb;
+        }
+
+        .mod-details p {
+            font-size: 11px;
+            color: #9ca3af;
+            margin-bottom: 6px;
+        }
+
+        .tags-row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .mini-tag {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            color: #d1d5db;
+        }
+
+        .download-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(165, 180, 252, 0.15);
+            color: #a5b4fc;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+            transition: 0.3s;
+        }
+        
+        .mod-card:hover .download-btn {
+            background: #a5b4fc;
+            color: #05070a;
+        }
+
+        /* Custom Modal thông báo */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: #0f1015;
+            border: 1.5px solid #a5b4fc;
+            width: 90
